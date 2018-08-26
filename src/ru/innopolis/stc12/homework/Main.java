@@ -1,22 +1,21 @@
 package ru.innopolis.stc12.homework;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+/**
+ * Создать класс ObjectBox, который будет хранить коллекцию Object.
+ * В нем должны быть все методы из MathBox.
+ * Методы должны работать корректно когда все элементы коллекции-Number.
+ * Если в коллекции есть не Number, должен бросаться Exception, разработанный самостоятельно.
+ * У класса должен быть метод addObject, добавляющий объект в коллекцию.
+ * У класса должен быть метод deleteObject, проверяющий наличие объекта в коллекции.
+ * Должен быть метод dump, выводящий содержимое коллекции в строку.
+ */
 
 public class Main {
-    public static void main(String[] args) {
-        List array = new ArrayList<Integer>();
-        Random random = new Random();
-        for (int i = 0; i < 100; i++) {
-            array.add(random.nextInt(100));
-        }
+    public static void main(String[] args) throws WrongObjectArgument {
 
-        List array2 = new ArrayList<Integer>();
-        Random random2 = new Random();
-        for (int i = 0; i < 100; i++) {
-            array2.add(random2.nextInt(100));
-        }
+        int[] array = {1, 2, 3, 4, 4, 5, 6, 7};
+
+        int[] array2 = {1, 2, 3, 4, 4, 5, 6, 8};
 
         MathBox mathBox = new MathBox(array);
         MathBox mathBox2 = new MathBox(array2);
@@ -33,5 +32,16 @@ public class Main {
         System.out.println("equals: " + mathBox.equals(mathBox3));
         System.out.println(mathBox.toString());
 
+        Object[] arrayObj = {1, 2, 3, 4, 3};
+
+        Object[] arrayObj2 = null;
+
+        ObjectBox objBox = new ObjectBox(arrayObj);
+        objBox.deleteObject(4);
+        objBox.addObject(1);
+        System.out.println(objBox);
+
+        ObjectBox objBox2 = new ObjectBox(arrayObj2);
+        objBox2.dump();
     }
 }

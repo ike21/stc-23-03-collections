@@ -2,13 +2,13 @@ package ru.innopolis.stc12.homework;
 
 import java.util.*;
 
-public class MathBox {
-    private Set<Integer> set = new TreeSet<>();
+public class ObjectBox {
+    private Set<Object> set = new TreeSet<>();
 
-    public MathBox(int array[]) throws WrongObjectArgument {
+    public ObjectBox(Object array[]) throws WrongObjectArgument {
         try {
             if (array != null) {
-                for (Integer o : array) {
+                for (Object o : array) {
                     set.add(o);
                 }
             }
@@ -31,8 +31,8 @@ public class MathBox {
 
     public List splitter(int denominator) {
         List split = new LinkedList<Integer>();
-        for (Object o : set) {
-            if (denominator != 0) {
+        if (denominator != 0) {
+            for (Object o : set) {
                 split.add((int) o / denominator);
             }
         }
@@ -55,16 +55,44 @@ public class MathBox {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        MathBox math = (MathBox) obj;
+        ObjectBox math = (ObjectBox) obj;
         return set.equals(math.set);
     }
 
     @Override
     public String toString() {
-        return "Array of integer: " + set + "\nhashCode: " + set.hashCode();
+        return "Array of object: " + set + "\nhashCode: " + set.hashCode();
     }
 
     public void delete(int value) {
         this.set.remove(value);
+    }
+
+    public void addObject(Object elem) throws WrongObjectArgument {
+        try {
+            if (elem != null) {
+                set.add(elem);
+            }
+        } catch (Exception e) {
+            throw new WrongObjectArgument("Elements of array must be one type");
+        }
+    }
+
+    public boolean deleteObject(Object elem) throws WrongObjectArgument {
+        try {
+            if (elem != null && set.contains(elem)) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new WrongObjectArgument("Elements of array must be one type");
+        }
+    }
+
+    public void dump() {
+        for (Object o : set) {
+            System.out.print(o + " ");
+        }
+        System.out.println();
     }
 }
